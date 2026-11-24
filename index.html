@@ -3,29 +3,212 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GitHub Araçları</title>
+<title>GitHub Stüdyo</title>
 <style>
-:root{--bg:#eef1f4;--card:#fff;--ink:#1b2430;--mut:#5d6b7c;--acc:#2457d6;--line:#d5dce4;color-scheme:light}
-@media(prefers-color-scheme:dark){:root{--bg:#10151c;--card:#182029;--ink:#e6ebf1;--mut:#93a1b3;--acc:#6b95ff;--line:#2a3542;color-scheme:dark}}
+:root{--bg:#eef1f4;--card:#fff;--ink:#1b2430;--mut:#5d6b7c;--acc:#2457d6;--line:#d5dce4;--code:#f4f6f8;--bad:#c0392b;color-scheme:light}
+@media(prefers-color-scheme:dark){:root{--bg:#10151c;--card:#182029;--ink:#e6ebf1;--mut:#93a1b3;--acc:#6b95ff;--line:#2a3542;--code:#121921;--bad:#ff7a6b;color-scheme:dark}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
-main{max-width:720px;margin:0 auto;padding:72px 20px}
-h1{font-size:2.6rem;line-height:1.15;margin:0 0 12px}
-p.lead{color:var(--mut);font-size:1.1rem;margin:0 0 36px}
-a.tool{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:14px;text-decoration:none;color:inherit}
-a.tool:hover,a.tool:focus-visible{border-color:var(--acc);outline:none}
-a.tool b{display:block;font-size:1.2rem;color:var(--acc);margin-bottom:4px}
-a.tool span{color:var(--mut)}
-footer{margin-top:40px;color:var(--mut);font-size:.9rem}
+.top{display:flex;align-items:center;gap:22px;padding:12px 24px;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;flex-wrap:wrap}
+.brand{font-weight:800;font-size:1.1rem}
+#nav{display:flex;gap:6px;flex:1}
+#nav a{padding:6px 12px;border-radius:8px;color:var(--mut);text-decoration:none;font-weight:600}
+#nav a.on{background:var(--acc);color:#fff}
+.badge{font-size:.8rem;color:var(--mut);border:1px solid var(--line);border-radius:99px;padding:2px 10px}
+main{max-width:860px;margin:0 auto;padding:30px 20px 70px}
+h1{font-size:1.9rem;margin:0 0 6px}
+.lead{color:var(--mut);margin:0 0 22px}
+.row{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.row input{flex:1;min-width:120px}
+input,select{padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit;min-width:0}
+button,.btn{padding:10px 18px;border:0;border-radius:8px;background:var(--acc);color:#fff;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+button.alt,.btn.alt{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+button.alt.on{border-color:var(--acc);color:var(--acc)}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.chips a{padding:3px 12px;border:1px solid var(--line);border-radius:99px;color:var(--mut);text-decoration:none;font-size:.9rem;background:var(--card)}
+.msg{padding:14px 16px;border-radius:8px;background:var(--card);border:1px solid var(--line)}
+.bad{color:var(--bad)}
+.profile{display:flex;gap:18px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px}
+.profile img{width:88px;height:88px;border-radius:50%}
+.profile h2{margin:0}.profile p{margin:2px 0;color:var(--mut)}
+.stats{display:flex;gap:16px;flex-wrap:wrap;font-size:.92rem;margin-top:6px}
+.tools{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin-bottom:12px}
+@media(max-width:600px){.tools{grid-template-columns:1fr}}
+.count{color:var(--mut);font-size:.9rem;margin:0 0 10px}
+.repo{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.repo .rn{font-weight:700;color:var(--acc);text-decoration:none}
+.repo small{margin-left:8px;color:var(--mut)}
+.repo p{margin:4px 0 8px;color:var(--mut)}
+.meta{display:flex;gap:14px;flex-wrap:wrap;font-size:.88rem;color:var(--mut)}
+.meta a{color:var(--acc)}
+.crumb{margin:0 0 14px;word-break:break-all}
+.crumb a{color:var(--acc);text-decoration:none}
+.list a.item{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-top:0;color:inherit;text-decoration:none}
+.list a.item:first-child{border-top:1px solid var(--line);border-radius:10px 10px 0 0}
+.list a.item:last-child{border-radius:0 0 10px 10px}
+.list a.item:only-child{border-radius:10px}
+.list a.item:hover{background:var(--code)}
+.list .sz{color:var(--mut);font-size:.88rem}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;max-height:560px;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;word-break:break-word;margin:0}
+details{margin-top:18px}
+summary{cursor:pointer;font-weight:600;margin-bottom:8px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+iframe{width:100%;height:68vh;min-height:420px;border:1px solid var(--line);border-radius:10px;background:#fff}
+img.pv{max-width:100%;border:1px solid var(--line);border-radius:10px;background:#fff}
 </style>
 </head>
 <body>
-<main>
-  <h1>GitHub'daki veriye ve sayfalara herkes ulaşsın</h1>
-  <p class="lead">Kayıt yok, giriş yok. Aşağıdan bir araç seç.</p>
-  <a class="tool" href="veri.html"><b>Veri çek</b><span>Herhangi bir GitHub kullanıcısının profilini ve repolarını göster.</span></a>
-  <a class="tool" href="yukle.html"><b>HTML yükle</b><span>Herkese açık bir repodaki HTML dosyasını çek ve çalıştır.</span></a>
-  <footer>Veriler GitHub'ın herkese açık API'sinden gelir.</footer>
-</main>
+<header class="top">
+  <div class="brand">GitHub Stüdyo</div>
+  <nav id="nav" aria-label="Bölümler">
+    <a data-v="kullanici" href="#/kullanici">Profil</a>
+    <a data-v="gezgin" href="#/gezgin">Gezgin</a>
+    <a data-v="calistir" href="#/calistir">Çalıştır</a>
+  </nav>
+  <span id="lim" class="badge" hidden title="Kalan GitHub API isteği (saatlik)"></span>
+</header>
+<main id="app"></main>
+
+<script>
+const API='https://api.github.com', app=document.getElementById('app');
+const $=s=>document.querySelector(s), enc=encodeURIComponent;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const H=(v,...a)=>'#/'+[v,...a].map(enc).join('/');
+const LS={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const cache=new Map();
+const err=e=>`<p class="msg bad">${esc(e.name==='TypeError'?'Bağlantı kurulamadı. İnternetini kontrol et.':e.message)}</p>`;
+const kb=n=>n<1024?n+' B':(n/1024).toFixed(1)+' KB';
+
+async function gh(path){
+  const url=API+path;
+  if(cache.has(url))return cache.get(url);
+  const r=await fetch(url,{headers:{Accept:'application/vnd.github+json'}});
+  const rem=r.headers.get('x-ratelimit-remaining');
+  if(rem!==null){const b=$('#lim');b.hidden=false;b.textContent='API: '+rem+' kaldı'}
+  if(r.status===404)throw new Error('Bulunamadı. Adı kontrol et; repo herkese açık olmalı.');
+  if(r.status===403||r.status===429)throw new Error('GitHub istek sınırına ulaşıldı (saatte 60). Biraz sonra tekrar dene.');
+  if(!r.ok)throw new Error('GitHub hata verdi ('+r.status+').');
+  const d=await r.json();cache.set(url,d);return d;
+}
+
+/* ---------- 1. PROFİL ---------- */
+async function vKullanici(u){
+  if(!u){u=LS.get('gs_recent',[])[0]||'octocat';history.replaceState(null,'',H('kullanici',u))}
+  const recent=LS.get('gs_recent',[]);
+  app.innerHTML=`<h1>Profil ve repolar</h1>
+  <p class="lead">Herhangi bir GitHub kullanıcısının herkese açık bilgilerini ara, filtrele, sırala.</p>
+  <form id="f" class="row"><input id="u" value="${esc(u)}" placeholder="Kullanıcı adı" aria-label="Kullanıcı adı" required><button>Getir</button></form>
+  <div class="chips">${recent.map(x=>`<a href="${H('kullanici',x)}">${esc(x)}</a>`).join('')}</div>
+  <div id="out"><p class="msg">Yükleniyor…</p></div>`;
+  $('#f').onsubmit=e=>{e.preventDefault();location.hash=H('kullanici',$('#u').value.trim())};
+  const out=$('#out');
+  try{
+    const [p,repos]=await Promise.all([gh('/users/'+enc(u)),gh('/users/'+enc(u)+'/repos?per_page=100&sort=updated')]);
+    LS.set('gs_recent',[p.login,...recent.filter(x=>x.toLowerCase()!==p.login.toLowerCase())].slice(0,6));
+    const langs=[...new Set(repos.map(r=>r.language).filter(Boolean))].sort();
+    out.innerHTML=`<div class="profile"><img src="${esc(p.avatar_url)}" alt="">
+      <div><h2>${esc(p.name||p.login)}</h2>
+      <p>@${esc(p.login)}${p.location?' · '+esc(p.location):''}</p>
+      ${p.bio?`<p>${esc(p.bio)}</p>`:''}
+      <div class="stats"><span>${p.public_repos} repo</span><span>${p.followers} takipçi</span><span>${p.following} takip</span>
+      <a href="${esc(p.html_url)}" target="_blank" rel="noopener">GitHub profili</a>
+      ${p.blog?`<a href="${esc(/^https?:/.test(p.blog)?p.blog:'https://'+p.blog)}" target="_blank" rel="noopener">Web sitesi</a>`:''}</div></div></div>
+      <div class="tools">
+        <input id="q" placeholder="Repo ara…" aria-label="Repo ara">
+        <select id="s" aria-label="Sırala"><option value="u">Son güncellenen</option><option value="s">En çok yıldız</option><option value="n">Ada göre</option></select>
+        <select id="l" aria-label="Dil"><option value="">Tüm diller</option>${langs.map(l=>`<option>${esc(l)}</option>`).join('')}</select>
+      </div><p class="count" id="c"></p><div id="list"></div>`;
+    const draw=()=>{
+      const q=$('#q').value.toLowerCase(),s=$('#s').value,l=$('#l').value;
+      let a=repos.filter(r=>(!l||r.language===l)&&(r.name+' '+(r.description||'')).toLowerCase().includes(q));
+      a.sort(s==='s'?(x,y)=>y.stargazers_count-x.stargazers_count:s==='n'?(x,y)=>x.name.localeCompare(y.name):(x,y)=>new Date(y.updated_at)-new Date(x.updated_at));
+      $('#c').textContent=a.length+' repo gösteriliyor';
+      $('#list').innerHTML=a.map(r=>{
+        const site=r.has_pages?`<a href="https://${esc(p.login)}.github.io/${r.name.toLowerCase()===p.login.toLowerCase()+'.github.io'?'':esc(r.name)+'/'}" target="_blank" rel="noopener">Canlı site</a>`:'';
+        return `<div class="repo"><a class="rn" href="${H('gezgin',p.login,r.name,r.default_branch)}">${esc(r.name)}</a>${r.fork?'<small>fork</small>':''}
+        <p>${esc(r.description||'Açıklama yok')}</p>
+        <div class="meta"><span>★ ${r.stargazers_count}</span><span>${esc(r.language||'—')}</span><span>Güncelleme: ${new Date(r.updated_at).toLocaleDateString('tr-TR')}</span>
+        <a href="${esc(r.html_url)}" target="_blank" rel="noopener">GitHub'da aç</a>${site}</div></div>`}).join('')||'<p class="msg">Eşleşen repo yok.</p>';
+    };
+    ['q','s','l'].forEach(id=>$('#'+id).addEventListener('input',draw));draw();
+  }catch(e){out.innerHTML=err(e)}
+}
+
+/* ---------- 2. GEZGİN ---------- */
+async function vGezgin(u,r,b,pa){
+  app.innerHTML=`<h1>Repo gezgini</h1><p class="lead">Klasörleri aç, dosyaları oku, HTML dosyalarını tek tıkla çalıştır.</p>
+  <form id="f" class="row"><input id="u" value="${esc(u)}" placeholder="Kullanıcı" aria-label="Kullanıcı" required><input id="r" value="${esc(r)}" placeholder="Repo" aria-label="Repo" required>
+  <input id="b" value="${esc(b==='_'?'':b)}" placeholder="Branch (boş = varsayılan)" aria-label="Branch"><button>Aç</button></form><div id="out"></div>`;
+  $('#f').onsubmit=e=>{e.preventDefault();location.hash=H('gezgin',$('#u').value.trim(),$('#r').value.trim(),$('#b').value.trim()||'_')};
+  if(!u||!r)return;
+  const out=$('#out');out.innerHTML='<p class="msg">Yükleniyor…</p>';
+  try{
+    if(!b||b==='_')b=(await gh(`/repos/${enc(u)}/${enc(r)}`)).default_branch;
+    const path=pa.join('/');
+    const d=await gh(`/repos/${enc(u)}/${enc(r)}/contents${path?'/'+pa.map(enc).join('/'):''}?ref=${enc(b)}`);
+    const crumb=`<p class="crumb"><a href="${H('gezgin',u,r,b)}">${esc(u)}/${esc(r)}</a> <small>(${esc(b)})</small>`+
+      pa.map((s,i)=>' / <a href="'+H('gezgin',u,r,b,...pa.slice(0,i+1))+'">'+esc(s)+'</a>').join('')+'</p>';
+    if(Array.isArray(d)){
+      d.sort((x,y)=>(x.type==='dir'?0:1)-(y.type==='dir'?0:1)||x.name.localeCompare(y.name));
+      out.innerHTML=crumb+`<div class="list">${d.map(x=>`<a class="item" href="${H('gezgin',u,r,b,...pa,x.name)}"><span>${x.type==='dir'?'▸ ':''}${esc(x.name)}</span><span class="sz">${x.type==='dir'?'klasör':kb(x.size)}</span></a>`).join('')||'<p class="msg">Klasör boş.</p>'}</div><div id="rd"></div>`;
+      const rm=d.find(x=>/^readme(\.md|\.txt)?$/i.test(x.name));
+      if(rm&&rm.download_url){
+        fetch(rm.download_url).then(x=>x.text()).then(t=>{$('#rd').innerHTML=`<details open><summary>${esc(rm.name)}</summary><pre>${esc(t.slice(0,20000))}</pre></details>`}).catch(()=>{});
+      }
+    }else{
+      const ext=(d.name.split('.').pop()||'').toLowerCase(), html=/^html?$/.test(ext);
+      let body;
+      if(['png','jpg','jpeg','gif','webp','svg','ico'].includes(ext))body=`<img class="pv" src="${esc(d.download_url)}" alt="${esc(d.name)}">`;
+      else if(d.size>500000)body='<p class="msg">Dosya 500 KB üzerinde, burada gösterilmiyor. "Ham dosya" ile aç.</p>';
+      else{const t=await (await fetch(d.download_url)).text();body=`<pre>${esc(t)}</pre>`}
+      out.innerHTML=crumb+`<div class="bar">${html?`<a class="btn" href="${H('calistir',u,r,b,...pa)}">Çalıştır</a>`:''}
+        <a class="btn alt" href="${esc(d.download_url||d.html_url)}" target="_blank" rel="noopener">Ham dosya</a>
+        <a class="btn alt" href="${esc(d.html_url)}" target="_blank" rel="noopener">GitHub'da aç</a><span class="sz">${kb(d.size)}</span></div>`+body;
+    }
+  }catch(e){out.innerHTML=err(e)}
+}
+
+/* ---------- 3. ÇALIŞTIR ---------- */
+async function vCalistir(u,r,b,pa){
+  const path=pa.join('/');
+  app.innerHTML=`<h1>GitHub'dan HTML çalıştır</h1><p class="lead">Repodaki bir HTML dosyasını çeker ve güvenli kutuda (sandbox) açar. CSS, JS ve görseller de yüklenir.</p>
+  <form id="f" class="row"><input id="u" value="${esc(u)}" placeholder="Kullanıcı" aria-label="Kullanıcı" required><input id="r" value="${esc(r)}" placeholder="Repo" aria-label="Repo" required>
+  <input id="b" value="${esc(b==='_'?'':b)}" placeholder="Branch (boş = varsayılan)" aria-label="Branch"><input id="p" value="${esc(path||'index.html')}" placeholder="Dosya yolu" aria-label="Dosya yolu" required><button>Yükle</button></form><div id="out"></div>`;
+  $('#f').onsubmit=e=>{e.preventDefault();location.hash=H('calistir',$('#u').value.trim(),$('#r').value.trim(),$('#b').value.trim()||'_',...$('#p').value.trim().split('/').filter(Boolean))};
+  if(!u||!r||!path)return;
+  const out=$('#out');out.innerHTML='<p class="msg">Yükleniyor…</p>';
+  try{
+    const base=`https://cdn.jsdelivr.net/gh/${enc(u)}/${enc(r)}${b&&b!=='_'?'@'+enc(b):''}/`;
+    const res=await fetch(base+pa.map(enc).join('/'));
+    if(!res.ok)throw new Error(`Dosya bulunamadı (hata ${res.status}). Kullanıcı, repo, branch ve dosya yolunu kontrol et.`);
+    let html=await res.text();
+    const tag=`<base href="${base+pa.slice(0,-1).map(s=>enc(s)+'/').join('')}">`;
+    const src=/<head[^>]*>/i.test(html)?html.replace(/<head[^>]*>/i,m=>m+tag):tag+html;
+    out.innerHTML=`<div class="bar"><button class="alt on" id="t1">Önizleme</button><button class="alt" id="t2">Kod</button>
+      <button class="alt" id="fs">Tam ekran</button><button class="alt" id="cp">Bağlantıyı kopyala</button>
+      <a class="btn alt" href="${H('gezgin',u,r,b||'_',...pa.slice(0,-1))}">Klasörü gez</a></div>
+      <iframe id="fr" title="Yüklenen sayfa" sandbox="allow-scripts allow-forms allow-popups allow-modals"></iframe><pre id="code" hidden></pre>`;
+    $('#fr').srcdoc=src;$('#code').textContent=html;
+    const tab=k=>{$('#fr').hidden=k===2;$('#code').hidden=k===1;$('#t1').classList.toggle('on',k===1);$('#t2').classList.toggle('on',k===2)};
+    $('#t1').onclick=()=>tab(1);$('#t2').onclick=()=>tab(2);
+    $('#fs').onclick=()=>{tab(1);$('#fr').requestFullscreen?.()};
+    $('#cp').onclick=async e=>{try{await navigator.clipboard.writeText(location.href);e.target.textContent='Kopyalandı'}catch{e.target.textContent='Kopyalanamadı'}setTimeout(()=>e.target.textContent='Bağlantıyı kopyala',1800)};
+  }catch(e){out.innerHTML=err(e)}
+}
+
+/* ---------- YÖNLENDİRME ---------- */
+function route(){
+  const h=location.hash.replace(/^#\/?/,'');
+  const p=h?h.split('/').map(s=>{try{return decodeURIComponent(s)}catch{return s}}):[];
+  const v=p[0]||'kullanici', pa=p.slice(4).filter(Boolean);
+  document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v));
+  scrollTo(0,0);
+  if(v==='gezgin')return vGezgin(p[1]||'',p[2]||'',p[3]||'',pa);
+  if(v==='calistir')return vCalistir(p[1]||'',p[2]||'',p[3]||'',pa);
+  return vKullanici(p[1]||'');
+}
+addEventListener('hashchange',route);route();
+</script>
 </body>
 </html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitHub Araçları</title>
+<style>
+:root{--bg:#eef1f4;--card:#fff;--ink:#1b2430;--mut:#5d6b7c;--acc:#2457d6;--line:#d5dce4;color-scheme:light}
+@media(prefers-color-scheme:dark){:root{--bg:#10151c;--card:#182029;--ink:#e6ebf1;--mut:#93a1b3;--acc:#6b95ff;--line:#2a3542;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto;padding:72px 20px}
+h1{font-size:2.6rem;line-height:1.15;margin:0 0 12px}
+p.lead{color:var(--mut);font-size:1.1rem;margin:0 0 36px}
+a.tool{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:14px;text-decoration:none;color:inherit}
+a.tool:hover,a.tool:focus-visible{border-color:var(--acc);outline:none}
+a.tool b{display:block;font-size:1.2rem;color:var(--acc);margin-bottom:4px}
+a.tool span{color:var(--mut)}
+footer{margin-top:40px;color:var(--mut);font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+  <h1>GitHub'daki veriye ve sayfalara herkes ulaşsın</h1>
+  <p class="lead">Kayıt yok, giriş yok. Aşağıdan bir araç seç.</p>
+  <a class="tool" href="veri.html"><b>Veri çek</b><span>Herhangi bir GitHub kullanıcısının profilini ve repolarını göster.</span></a>
+  <a class="tool" href="yukle.html"><b>HTML yükle</b><span>Herkese açık bir repodaki HTML dosyasını çek ve çalıştır.</span></a>
+  <footer>Veriler GitHub'ın herkese açık API'sinden gelir.</footer>
+</main>
+</body>
+</html>
